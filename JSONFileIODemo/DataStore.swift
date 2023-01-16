@@ -45,7 +45,7 @@ class DataStore: ObservableObject {
         // that is updated with the new album.
         artists[artistName] = artist
 
-        dump()
+        // dump() // for debugging
         save()
     }
 
@@ -58,6 +58,9 @@ class DataStore: ObservableObject {
         let artist = artists[name]
         guard var artist else { return }
         artist.albums.removeAll { $0.title == album.title }
+
+        // Replace the artist in the Dictionary with a new instance
+        // where the album is removed.
         artists[name] = artist
         save()
     }
@@ -79,6 +82,7 @@ class DataStore: ObservableObject {
 
     func load() {
         let url = URL.documentsDirectory.appending(path: "music.json")
+        // CD to this directory in a Terminal window to view this file.
         print(URL.documentsDirectory)
         guard FileManager().fileExists(atPath: url.path) else { return }
 
@@ -86,7 +90,7 @@ class DataStore: ObservableObject {
             let data = try Data(contentsOf: url)
             artists = try JSONDecoder()
                 .decode([String: Artist].self, from: data)
-            dump()
+            // dump() // for debugging
         } catch {
             self.error = error
         }
