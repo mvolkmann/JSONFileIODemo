@@ -45,18 +45,15 @@ struct ContentView: View {
         // TODO: Add support for updating and deleting artists.
         List(store.artistNames(), id: \.self) { artistName in
             let artist = store.artists[artistName]!
-            HStack {
-                Text(artist.name)
-                    .swipeActions {
-                        Button(role: .destructive) {
-                            store.deleteArtist(artist)
-                        } label: {
-                            Image(systemName: "trash").foregroundColor(.red)
-                        }
+            Text(artist.name)
+                .swipeActions {
+                    Button(role: .destructive) {
+                        store.deleteArtist(artist)
+                    } label: {
+                        Image(systemName: "trash").foregroundColor(.red)
                     }
-            }
+                }
 
-            // TODO: Add support for updating and deleting albums.
             ForEach(artist.albums) { album in
                 Text("\t\(album.title)")
                     .swipeActions {
@@ -67,7 +64,6 @@ struct ContentView: View {
                         }
                     }
             }
-            .listStyle(.plain)
         }
         .listStyle(.plain)
     }
