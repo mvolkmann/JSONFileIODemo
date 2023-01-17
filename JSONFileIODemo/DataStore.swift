@@ -82,8 +82,12 @@ class DataStore: ObservableObject {
 
     func load() {
         let url = URL.documentsDirectory.appending(path: "music.json")
-        // CD to this directory in a Terminal window to view this file.
-        print(URL.documentsDirectory)
+
+        // To see the music.json file in the Finder, select the output
+        // of this print call in the Debug Console, right-click,
+        // select Services ... Open, and click the "Run Service" button.
+        print(URL.documentsDirectory.path)
+
         guard FileManager().fileExists(atPath: url.path) else { return }
 
         do {
